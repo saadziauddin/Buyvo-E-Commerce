@@ -35,7 +35,9 @@ import SignUp from "./pages/ecommerce/Account/SignUp";
 import Reset from "./pages/ecommerce/Account/Reset";
 import PrivacyPolicy from "./pages/ecommerce/PrivacyPolicy/PrivacyPolicy";
 
-// ================= Dashboard =====================
+// ================= Dashboard 
+// ================= Home =====================
+import DashboardHome from "./pages/dashboard/Home/Home";
 // ================= User management =====================
 import UserManagement from "./pages/dashboard/UserManagement/UserManagement";
 import UserProfile from './pages/dashboard/UserManagement/UserProfile';
@@ -65,35 +67,38 @@ const router = createBrowserRouter(
     <Route>
       {/* Website Routes */}
       <Route path="/" element={<Layout />}>
-        <Route index element={<><PageTitle title="Nayab Fashion - Best Ecommerce Store in Pakistan" /><Home /></>} />
-        <Route path="/products" element={<><PageTitle title="Nayab Fashion - Products" /><Product /></>} />
-        <Route path="/about" element={<><PageTitle title="Nayab Fashion - About" /><About /></>} />
-        <Route path="/contact" element={<><PageTitle title="Nayab Fashion - Contact" /><Contact /></>} />
-        <Route path="/product/:id" element={<><PageTitle title="Nayab Fashion - Product Details" /><ProductDetails /></>} />
-        <Route path="/cart" element={<><PageTitle title="Nayab Fashion - Cart" /><Cart /></>} />
-        <Route path="/checkout" element={<><PageTitle title="Nayab Fashion - Checkout Form" /><CheckoutForm /></>} />
-        <Route path="/paymentgateway" element={<><PageTitle title="Nayab Fashion - Payment" /><Payment /></>} />
-        <Route path="/orderdetails/:useremail" element={<><PageTitle title="Nayab Fashion - Order Details" /><OrderDetailsForUser /></>} />
-        <Route path="/thankyou" element={<><PageTitle title="Nayab Fashion - Thankyou" /><Thankyou /></>} />
-        <Route path="/welcome" element={<><PageTitle title="Nayab Fashion - Welcome" /><Welcome /></>} />
+        <Route index element={<><PageTitle title="Online Shopping Pakistan | Shoes and Clothing | Latest Fashion in Pakistan | Buyvo.com" /><Home /></>} />
+        <Route path="/products" element={<><PageTitle title="Products - Latest Fashion in Pakistan" /><Product /></>} />
+        <Route path="/about" element={<><PageTitle title="About - Latest Fashion in Pakistan" /><About /></>} />
+        <Route path="/contact" element={<><PageTitle title="Contact - Latest Fashion in Pakistan" /><Contact /></>} />
+        <Route path="/product/:id" element={<><PageTitle title="Product Details - Latest Fashion in Pakistan" /><ProductDetails /></>} />
+        <Route path="/cart" element={<><PageTitle title="Cart - Latest Fashion in Pakistan" /><Cart /></>} />
+        <Route path="/checkout" element={<><PageTitle title="Checkout Form - Latest Fashion in Pakistan" /><CheckoutForm /></>} />
+        <Route path="/paymentgateway" element={<><PageTitle title="Payment - Latest Fashion in Pakistan" /><Payment /></>} />
+        <Route path="/orderdetails/:useremail" element={<><PageTitle title="Order Details - Latest Fashion in Pakistan" /><OrderDetailsForUser /></>} />
+        <Route path="/thankyou" element={<><PageTitle title="Thankyou - Latest Fashion in Pakistan" /><Thankyou /></>} />
+        <Route path="/welcome" element={<><PageTitle title="Welcome - Latest Fashion in Pakistan" /><Welcome /></>} />
       </Route>
 
-      <Route path="/signin" element={<><PageTitle title="Nayab Fashion - Sign In" /><SignIn /></>} />
-      <Route path="/signup" element={<><PageTitle title="Nayab Fashion - Sign Up" /><SignUp /></>} />
-      <Route path="/reset" element={<><PageTitle title="Nayab Fashion - Reset Password" /><Reset /></>} />
-      <Route path="/signup/privacy-policy" element={<><PageTitle title="Nayab Fashion - Privacy Policy" /><PrivacyPolicy /></>} />
-      <Route path="/dashboard/userManagement" element={<><PageTitle title="Nayab Fashion - User Management" /><UserManagement /></>} />
-      <Route path="/dashboard/userManagement/userProfile/:userId" element={<><PageTitle title="Nayab Fashion - Edit User" /><UserProfile /></>} />
-      <Route path="/dashboard/userProfile/:userId" element={<><PageTitle title="Nayab Fashion - Edit Profile" /><UserProfile /></>} />
-      <Route path="/editprofile/:userId" element={<><PageTitle title="Nayab Fashion - Edit Profile" /><UserProfile /></>} />
-      <Route path="/dashboard/categories" element={<><PageTitle title="Nayab Fashion - Categories" /><Categories /></>} />
-      <Route path="/dashboard/categories/addCategory" element={<><PageTitle title="Nayab Fashion - Add Category" /><AddCategory /></>} />
-      <Route path="/dashboard/categories/updateCategory/:categoryId" element={<><PageTitle title="Nayab Fashion - Update Category" /><UpdateCategory /></>} />
-      <Route path="/dashboard/products" element={<><PageTitle title="Nayab Fashion - Products" /><Products /></>} />
-      <Route path="/dashboard/products/addProduct" element={<><PageTitle title="Nayab Fashion - Add Product" /><AddProduct /></>} />
-      <Route path="/dashboard/products/updateProduct/:productId" element={<><PageTitle title="Nayab Fashion - Update Product" /><UpdateProduct /></>} />
-      <Route path="/dashboard/orders" element={<><PageTitle title="Nayab Fashion - Orders" /><Orders /></>} />
-      <Route path="/dashboard/orders/orderDetails/:orderId" element={<><PageTitle title="Nayab Fashion - Order Details" /><OrderDetails /></>} />
+      <Route path="/signin" element={<><PageTitle title="Sign In - Latest Fashion in Pakistan" /><SignIn /></>} />
+      <Route path="/signup" element={<><PageTitle title="Sign Up - Latest Fashion in Pakistan" /><SignUp /></>} />
+      <Route path="/reset" element={<><PageTitle title="Reset Password - Latest Fashion in Pakistan" /><Reset /></>} />
+      <Route path="/signup/privacy-policy" element={<><PageTitle title="Privacy Policy - Latest Fashion in Pakistan" /><PrivacyPolicy /></>} />
+
+      
+      <Route path="/dashboard/home" element={<><PageTitle title="Admin Dashboard - Buyvo" /><DashboardHome /></>} />
+      <Route path="/dashboard/userManagement" element={<><PageTitle title="User Management - Latest Fashion in Pakistan" /><UserManagement /></>} />
+      <Route path="/dashboard/userManagement/userProfile/:userId" element={<><PageTitle title="Edit User - Latest Fashion in Pakistan" /><UserProfile /></>} />
+      <Route path="/dashboard/userProfile/:userId" element={<><PageTitle title="Edit Profile - Latest Fashion in Pakistan" /><UserProfile /></>} />
+      <Route path="/editprofile/:userId" element={<><PageTitle title="Edit Profile - Latest Fashion in Pakistan" /><UserProfile /></>} />
+      <Route path="/dashboard/categories" element={<><PageTitle title="Categories - Latest Fashion in Pakistan" /><Categories /></>} />
+      <Route path="/dashboard/categories/addCategory" element={<><PageTitle title="Add Category - Latest Fashion in Pakistan" /><AddCategory /></>} />
+      <Route path="/dashboard/categories/updateCategory/:categoryId" element={<><PageTitle title="Update Category - Latest Fashion in Pakistan" /><UpdateCategory /></>} />
+      <Route path="/dashboard/products" element={<><PageTitle title="Products" /><Products /></>} />
+      <Route path="/dashboard/products/addProduct" element={<><PageTitle title="Add Product - Latest Fashion in Pakistan" /><AddProduct /></>} />
+      <Route path="/dashboard/products/updateProduct/:productId" element={<><PageTitle title="Update Product - Latest Fashion in Pakistan" /><UpdateProduct /></>} />
+      <Route path="/dashboard/orders" element={<><PageTitle title="Orders - Latest Fashion in Pakistan" /><Orders /></>} />
+      <Route path="/dashboard/orders/orderDetails/:orderId" element={<><PageTitle title="Order Details - Latest Fashion in Pakistan" /><OrderDetails /></>} />
     </Route>
   )
 );

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import BannerImgOne from "/Images/Slider/Nayab Exclusive (Slider 1).png";
-import BannerImgThree from "/Images/Slider/Nikkah Outfit (Slider 2).png";
-import BannerImgFour from "/Images/Slider/Saree Outfit (Slider 3).png";
-import BannerImgFive from "/Images/Slider/Mehndi Outfit (Slider 4).png";
+import DesktopSliderImg from "/Images/DesktopSliders/slider.png";
+import MobileSlidersImg from "/Images/MobileSliders/slider.png";
 import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 
 const NextArrow = ({ onClick }) => (
@@ -23,12 +21,25 @@ const PrevArrow = ({ onClick }) => (
 
 const CustomSlide = ({ imgSrc }) => (
   <Link to='/products'>
-    <img className="w-full h-[190px] md:h-[500px] object-center cursor-pointer" src={imgSrc} alt="Main Banner" />
+    <img className="w-full h-[356px] md:h-[500px] object-center cursor-pointer" src={imgSrc} alt="Main Banner" />
   </Link>
 );
 
 const Banner = () => {
   const [dotActive, setDotActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect screen size and update the state
+  useEffect(() => {
+    const updateScreenSize = () => {
+      setIsMobile(window.innerWidth < 768); // Mobile screens are below 768px
+    };
+
+    updateScreenSize(); // Check initial screen size
+    window.addEventListener("resize", updateScreenSize);
+
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
 
   const settings = {
     dots: false,
@@ -89,15 +100,20 @@ const Banner = () => {
     ],
   };
 
-  const slides = [
-    { imgSrc: BannerImgOne },
-    { imgSrc: BannerImgThree },
-    { imgSrc: BannerImgFour },
-    { imgSrc: BannerImgFive },
-  ]
+  const slides = isMobile
+  ? [
+      { imgSrc: MobileSlidersImg },
+      { imgSrc: MobileSlidersImg },
+      { imgSrc: MobileSlidersImg },
+    ]
+  : [
+      { imgSrc: DesktopSliderImg },
+      { imgSrc: DesktopSliderImg },
+      { imgSrc: DesktopSliderImg },
+    ];
 
   return (
-    <div className="mt-1 md:mt-5">
+    <div className="mt-3">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <CustomSlide key={index} imgSrc={slide.imgSrc} />

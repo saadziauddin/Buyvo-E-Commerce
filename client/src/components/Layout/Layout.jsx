@@ -31,7 +31,7 @@ const Layout = () => {
                 theme="colored"
             />
             <Navbar onCurrencyChange={handleCurrencyChange} />
-            <NavbarBottom />
+            {/* <NavbarBottom /> */}
             <Outlet context={{ selectedCurrency: currency }} />
             <Footer />
             <FooterBottom />

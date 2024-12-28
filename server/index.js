@@ -25,7 +25,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// console.log("Allowed origins:", [process.env.PRODUCTION_API_URL, process.env.VITE_API_URL]);
+console.log("Allowed origins:", [process.env.PRODUCTION_API_URL, process.env.VITE_API_URL]);
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", req.headers.origin || "*");

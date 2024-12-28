@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faBox, faCartPlus, faSignOutAlt, faTimes, faList } from '@fortawesome/free-solid-svg-icons';
-import logo from '/Images/NayabLogo.png';
+import logo from '/Images/BuyvoLogo.png';
 import api from '../../../api/api.js';
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
@@ -79,17 +79,17 @@ function Sidebar({ isOpen, closeSidebar }) {
   return (
     <aside ref={sidebarRef} className={`fixed inset-y-0 z-30 my-4 ml-4 block w-64 flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-lg transition-transform duration-200 xl:left-0 ${isOpen ? 'translate-x-0' : '-translate-x-full xl:translate-x-0'}`}>
       <div className="flex justify-center items-center py-4">
-        <img src={logo} className="h-14 w-auto" alt="main_logo" />
+        <Link to='/dashboard/home'><img src={logo} className="h-14 w-auto" alt="main_logo" /></Link>
       </div>
       <hr className="h-px mt-0 mb-3 bg-gray-200" />
       <div className="items-center block w-auto max-h-screen h-sidenav grow basis-full">
         <ul className="flex flex-col pl-0 mb-0">
-          {/* <li className="mt-2 w-full">
+          <li className="mt-2 w-full">
             <NavLink to="/dashboard/home" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
               <FontAwesomeIcon icon={faHome} className="mr-2" />
-              <span>Dashboard</span>
+              <span>Home</span>
             </NavLink>
-          </li> */}
+          </li>
           {(role === "Admin" || role === "SubAdmin") && (
             <>
               <li className="mt-2 w-full">

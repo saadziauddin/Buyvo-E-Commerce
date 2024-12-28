@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import api from '../../../api/api.js';
@@ -33,27 +33,6 @@ function Navbar({ toggleSidebar }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
-
-  // useEffect(() => {
-  //   api.get('/api/signin')
-  //     .then(res => {
-  //       if (res.data.Status === "Success") {
-  //         setUserId(res.data.id);
-  //         setName(res.data.name);
-  //         const userImage = res.data.image 
-  //           ? `${res.data.image}`
-  //           : `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/default_profile_jlmahy.png`;   
-  //         setUserImage(userImage);
-  //         setRole(res.data.role);
-  //         setEmail(res.data.email);
-  //       } else {
-  //         navigate('/');
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, [navigate]);
 
   useEffect(() => {
     // Show loader when the API call starts
@@ -109,7 +88,7 @@ function Navbar({ toggleSidebar }) {
 
         {/* Center: Dashboard text */}
         <h1 className="flex-grow text-center text-base lg:text-xl xl:text-xl text-gray-800 font-medium font-titleFont uppercase">
-          Nayab Fashion Dashboard
+          <Link to='/dashboard/home'>Buyvo - Admin Dashboard</Link>
         </h1>
 
         {/* Right: User Dropdown */}

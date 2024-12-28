@@ -75,10 +75,10 @@ const SignIn = () => {
           };
 
           if (role === "Admin") {
-            navigate("/dashboard/userManagement");
+            navigate("/dashboard/home");
           }
           else if (role === "SubAdmin") {
-            navigate("/dashboard/userManagement");
+            navigate("/dashboard/home");
           }
           else if (role === "Client") {
             localStorage.setItem("user", JSON.stringify(userData));

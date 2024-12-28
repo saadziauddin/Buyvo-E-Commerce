@@ -74,18 +74,26 @@ const NavbarBottom = () => {
           className="flex items-center space-x-6"
         >
           <Link
-            to="/"
+            to="/products"
             className="relative uppercase text-[16px] text-gray-800 font-thin group hover:text-gray-600"
           >
-            Home
+            Men
             <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
           </Link>
 
           <Link
             to="/products"
-            className="relative uppercase text-[16px] text-red-600 font-thin group animate-blink"
+            className="relative uppercase text-[16px] text-gray-800 font-thin group hover:text-gray-600"
           >
-            Sale
+            Women
+            <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
+          </Link>
+
+          <Link
+            to="/products"
+            className="relative uppercase text-[16px] text-gray-800 font-thin group hover:text-gray-600"
+          >
+            Kids
             <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
           </Link>
 
@@ -102,36 +110,16 @@ const NavbarBottom = () => {
           </ScrollLink>
 
           <ScrollLink
-            to="nayab-exclusive"
+            to="small-banner"
             smooth={true}
             duration={500}
             offset={-50}
-            onClick={() => handleNavigation('nayab-exclusive')}
+            onClick={() => handleNavigation('small-banner')}
             className="relative uppercase text-[16px] text-gray-800 font-thin group cursor-pointer"
           >
-            Nayab Exclusive
+            Top Trending
             <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
           </ScrollLink>
-
-          <ScrollLink
-            to="special-offers"
-            smooth={true}
-            duration={500}
-            offset={-50}
-            onClick={() => handleNavigation('special-offers')}
-            className="relative uppercase text-[16px] text-gray-800 font-thin group cursor-pointer"
-          >
-            Special Offers
-            <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
-          </ScrollLink>
-
-          <Link
-            to="/products"
-            className="relative uppercase text-[16px] text-gray-800 font-thin group hover:text-gray-600"
-          >
-            Explore Shop
-            <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
-          </Link>
 
           <div className="relative"
             onMouseEnter={handleMouseEnter}
