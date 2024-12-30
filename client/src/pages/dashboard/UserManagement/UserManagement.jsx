@@ -100,7 +100,7 @@ function UserManagement() {
 
   const handleEdit = (row) => {
     const userId = row._id;
-    navigate(`/dashboard/userManagement/userProfile/${userId}`);
+    navigate(`/dashboard/user_management/user_profile/${userId}`);
   };
 
   const handleDelete = async (UserId) => {

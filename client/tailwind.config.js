@@ -5,9 +5,6 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  plugins: [
-    scrollbarPlugin({ nocompatible: true }),
-  ],
   theme: {
     extend: {
       maxWidth: {
@@ -35,24 +32,31 @@ module.exports = {
         lightGray: '#f4f4f4',
         primeColor: "#262626",
         lightText: "#6D6D6D",
+        instagrampink: '#E1306C',
+        instagramorange: '#F77737',
+        instagrampurple: '#C13584',
+        instagramblue: '#405DE6',
       },
       boxShadow: {
         testShadow: "0px 0px 54px -13px rgba(0,0,0,0.7)",
       },
       animation: {
-        marquee: 'marquee 15s linear infinite',
         blink: 'blink 1s steps(2, start) infinite',
       },
       keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
         blink: {
           '0%, 100%': { opacity: 3 },
           '0%': { opacity: 0 },
         },
       },
+    },
+  },
+  plugins: [
+    scrollbarPlugin({ nocompatible: true }),
+  ],
+  variants: {
+    extend: {
+      backdropFilter: ['hover', 'focus'],
     },
   },
 };

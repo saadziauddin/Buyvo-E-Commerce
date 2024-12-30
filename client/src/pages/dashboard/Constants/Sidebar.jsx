@@ -90,34 +90,46 @@ function Sidebar({ isOpen, closeSidebar }) {
               <span>Home</span>
             </NavLink>
           </li>
-          {(role === "Admin" || role === "SubAdmin") && (
-            <>
-              <li className="mt-2 w-full">
-                <NavLink to="/dashboard/userManagement" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
-                  <FontAwesomeIcon icon={faUsers} className="mr-2" />
-                  <span>User Management</span>
-                </NavLink>
-              </li>
-            </>
-          )}
+
           <li className="mt-2 w-full">
             <NavLink to="/dashboard/products" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
               <FontAwesomeIcon icon={faBox} className="mr-2" />
               <span>Products</span>
             </NavLink>
           </li>
-          <li className="mt-2 w-full">
-            <NavLink to="/dashboard/categories" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
-              <FontAwesomeIcon icon={faList} className="mr-2" />
-              <span>Categories</span>
-            </NavLink>
-          </li>
+
           <li className="mt-2 w-full">
             <NavLink to="/dashboard/orders" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
               <FontAwesomeIcon icon={faCartPlus} className="mr-2" />
               <span>Orders</span>
             </NavLink>
           </li>
+
+          <li className="mt-2 w-full">
+            <NavLink to="/dashboard/categories" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
+              <FontAwesomeIcon icon={faList} className="mr-2" />
+              <span>Categories</span>
+            </NavLink>
+          </li>
+
+          <li className="mt-2 w-full">
+            <NavLink to="/dashboard/sub_categories" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
+              <FontAwesomeIcon icon={faList} className="mr-2" />
+              <span>Sub-Categories</span>
+            </NavLink>
+          </li>
+
+          {(role === "Admin" || role === "SubAdmin") && (
+            <>
+              <li className="mt-2 w-full">
+                <NavLink to="/dashboard/user_management" className={({ isActive }) => `py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all ${isActive ? 'bg-gray-200 text-black' : 'text-gray-600 hover:bg-gray-200 hover:text-black'}`}>
+                  <FontAwesomeIcon icon={faUsers} className="mr-2" />
+                  <span>User Management</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+
           <li className="mt-2 w-full">
             <NavLink to="#" onClick={logout} className="py-2.5 text-sm my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 transition-all text-gray-600 hover:bg-gray-200 hover:text-black">
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />

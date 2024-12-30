@@ -63,7 +63,7 @@ function Navbar({ toggleSidebar }) {
 
   const handleEditProfile = () => {
     if (userId) {
-      navigate(`/dashboard/userProfile/${userId}`);
+      navigate(`/dashboard/user_profile/${userId}`);
     } else {
       console.error("User ID is not defined");
     }

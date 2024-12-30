@@ -99,7 +99,6 @@ function ProductCard(props) {
       </div>
 
       {/* Product Info */}
-      {/* h-[200px] lg:h-[180px] */}
       <div className={`mt-1 p-2 px-2 bg-white transition-all duration-300 hover:scale-100 ${isHovered ? "h-auto" : "h-[100px]"}`}>
         <div className="flex justify-center items-center">
           <div>
@@ -127,12 +126,12 @@ function ProductCard(props) {
         </div>
 
         {/* Description */}
-        {isHovered && (
+        {/* {isHovered && (
           <p
             className="relative w-full h-full text-sm text-center text-gray-800 bg-white px-4"
             dangerouslySetInnerHTML={{ __html: formatDescription(props.shortDescription) }}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

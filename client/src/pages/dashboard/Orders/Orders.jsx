@@ -49,7 +49,7 @@ function Orders() {
 
   const handleDetails = (row) => {
     const orderId = row._id;
-    navigate(`/dashboard/orders/orderDetails/${orderId}`);
+    navigate(`/dashboard/orders/order_details/${orderId}`);
   };
 
   return (

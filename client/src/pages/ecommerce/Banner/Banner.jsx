@@ -113,7 +113,7 @@ const Banner = () => {
     ];
 
   return (
-    <div className="mt-3">
+    <div className="mt-5">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <CustomSlide key={index} imgSrc={slide.imgSrc} />

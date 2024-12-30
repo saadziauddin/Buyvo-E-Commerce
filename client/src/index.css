@@ -5,109 +5,155 @@
 
 /* Google Fonts CSS */
 .poppins-thin {
-      font-family: "Poppins", sans-serif;
-      font-weight: 100;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
 .poppins-extralight {
-      font-family: "Poppins", sans-serif;
-      font-weight: 200;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
 }
 
 .poppins-light {
-      font-family: "Poppins", sans-serif;
-      font-weight: 300;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .poppins-regular {
-      font-family: "Poppins", sans-serif;
-      font-weight: 400;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .poppins-medium {
-      font-family: "Poppins", sans-serif;
-      font-weight: 500;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .poppins-semibold {
-      font-family: "Poppins", sans-serif;
-      font-weight: 600;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .poppins-bold {
-      font-family: "Poppins", sans-serif;
-      font-weight: 700;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .poppins-extrabold {
-      font-family: "Poppins", sans-serif;
-      font-weight: 800;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
 }
 
 .poppins-black {
-      font-family: "Poppins", sans-serif;
-      font-weight: 900;
-      font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }
 
 .poppins-thin-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 100;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
 }
 
 .poppins-extralight-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 200;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
 }
 
 .poppins-light-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 300;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
 }
 
 .poppins-regular-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 400;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .poppins-medium-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 500;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
 }
 
 .poppins-semibold-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 600;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
 }
 
 .poppins-bold-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 700;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
 .poppins-extrabold-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 800;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
 }
 
 .poppins-black-italic {
-      font-family: "Poppins", sans-serif;
-      font-weight: 900;
-      font-style: italic;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(255, 99, 71, 0.5), 0 0 16px rgba(255, 99, 71, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(255, 99, 71, 0.7),
+      0 0 32px rgba(255, 99, 71, 0.5);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes gradient-scroll {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-scroll {
+  background-size: 300% 300%;
+  animation: gradient-scroll 6s ease infinite;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
 }

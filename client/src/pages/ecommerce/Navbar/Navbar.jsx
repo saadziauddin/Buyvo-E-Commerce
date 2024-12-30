@@ -1,96 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SlEnvolope, SlPhone } from "react-icons/sl";
-import { HiOutlineSearch, HiSearch } from "react-icons/hi";
-import { HiMiniBars3BottomRight, HiMiniShoppingBag, HiMiniUser, HiUser } from "react-icons/hi2";
-import { CiUser } from "react-icons/ci";
-import { PiShoppingCartThin } from "react-icons/pi";
+import { HiSearch } from "react-icons/hi";
+import { HiMiniBars3BottomRight, HiMiniShoppingBag, HiMiniUser } from "react-icons/hi2";
 import { PK, US, GB, TR, OM, AE, SA, QA, CA, EU, AU, BD, HK, TH, NZ } from 'country-flag-icons/react/3x2';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import logo from "/Images/BuyvoLogo.png";
 import api from "../../../api/api";
 import { toast } from 'react-toastify';
 import MobileSidebar from "./MobileSidebar";
-import { FaSleigh } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
-import { useDispatch, Provider } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
-import { CiSearch } from "react-icons/ci";
+import Marquee from 'react-fast-marquee';
 
 const Navbar = ({ onCurrencyChange }) => {
   const [currency, setCurrency] = useState('PKR');
   const [sidenav, setSidenav] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showUser, setShowUser] = useState(false);
-  const products = useSelector((state) => state.reduxReducer.products);
   const [userInfo, setUserInfo] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [showDesktopDropdown, setShowDesktopDropdown] = useState(false);
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const products = useSelector((state) => state.reduxReducer.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const currencyRef = useRef(null);
-  // const userRef = useRef(null);
-  // const desktopSearchDropdownRef = useRef(null);
-  // const isMobileSearchOpenRef = useRef(null);
-  // const mobileSearchDropdownRef = useRef(null);
-  // const dropdownRef = useRef(null);
-  // const searchRef = useRef(null);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (currencyRef.current && !currencyRef.current.contains(event.target)) {
-  //       setIsOpen(false);
-  //     }
-  //     if (userRef.current && !userRef.current.contains(event.target)) {
-  //       setShowUser(false);
-  //     }
-  //     if (desktopSearchDropdownRef.current && !desktopSearchDropdownRef.current.contains(event.target)) {
-  //       setShowDesktopDropdown(false);
-  //     }
-  //     if (isMobileSearchOpenRef.current && !isMobileSearchOpenRef.current.contains(event.target)) {
-  //       setIsMobileSearchOpen(false);
-  //     }
-  //     if (mobileSearchDropdownRef.current && !mobileSearchDropdownRef.current.contains(event.target)) {
-  //       setShowMobileDropdown(false);
-  //     }
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //     if (searchRef.current && !searchRef.current.contains(event.target)) {
-  //       setSearchOpen(false);
-  //     }
-  //   };
-  //   document.body.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [currencyRef, userRef, desktopSearchDropdownRef, isMobileSearchOpenRef, mobileSearchDropdownRef, dropdownRef, searchRef]);
-
   const currencyRef = useRef(null);
   const userRef = useRef(null);
-  const desktopSearchDropdownRef = useRef(null);
-  const isMobileSearchOpenRef = useRef(null);
-  const mobileSearchDropdownRef = useRef(null);
   const dropdownRef = useRef(null);
-  const searchRef = useRef(null);
 
   const refs = {
     currency: currencyRef,
     user: userRef,
-    desktopSearch: desktopSearchDropdownRef,
-    mobileSearch: isMobileSearchOpenRef,
-    mobileDropdown: mobileSearchDropdownRef,
     dropdown: dropdownRef,
-    search: searchRef,
   };
 
   useEffect(() => {
@@ -104,20 +53,8 @@ const Navbar = ({ onCurrencyChange }) => {
             case "user":
               setShowUser(false);
               break;
-            case "desktopSearch":
-              setShowDesktopDropdown(false);
-              break;
-            case "mobileSearch":
-              setIsMobileSearchOpen(false);
-              break;
-            case "mobileDropdown":
-              setShowMobileDropdown(false);
-              break;
             case "dropdown":
               setIsDropdownOpen(false);
-              break;
-            case "search":
-              setSearchOpen(false);
               break;
             default:
               break;
@@ -139,13 +76,13 @@ const Navbar = ({ onCurrencyChange }) => {
         const { products, categories } = response.data;
 
         setSearchResults({ products, categories });
-        setShowDesktopDropdown(true);
+        setShowDropdown(true);
       } catch (error) {
         console.error('Error fetching search results', error);
         toast.error('Error fetching search results', error);
       }
     } else {
-      setShowDesktopDropdown(false);
+      setShowDropdown(false);
     }
   };
 
@@ -157,29 +94,33 @@ const Navbar = ({ onCurrencyChange }) => {
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
 
-  const handleDesktopSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    setShowDesktopDropdown(true);
-  };
-
-  const handleMobileSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    setShowMobileDropdown(true);
-  };
-
   const handleCategoryClick = (categoryName) => {
     dispatch(setLoading(true));
-    setIsDropdownOpen(false);
-    setShowDesktopDropdown(false);
+    setSearchOpen(false);
+    setShowDropdown(false);
+    setSearchQuery('');
+    setTimeout(() => { dispatch(setLoading(false)); }, 2000);
     navigate(`/products?category=${categoryName}`);
-    setTimeout(() => {
-      dispatch(setLoading(false));
-    }, 2000);
   };
 
   const handleProductClick = (productName) => {
-    setShowDesktopDropdown(false);
+    dispatch(setLoading(true));
+    setSearchOpen(false);
+    setShowDropdown(false);
+    setSearchQuery('');
+    setTimeout(() => { dispatch(setLoading(false)); }, 2000);
     navigate(`/products?name=${productName}`);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setShowDropdown(true);
+  };
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setShowDropdown(false);
+    setSearchQuery('');
   };
 
   const flagComponents = {
@@ -266,7 +207,7 @@ const Navbar = ({ onCurrencyChange }) => {
     }
   };
 
-  // Navigation Links Part
+  // Fetch Categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -298,13 +239,15 @@ const Navbar = ({ onCurrencyChange }) => {
   };
 
   return (
-    <div className="w-full">
+    <>
       {/* Top Announcement Bar */}
-      <div className="w-full xs:h-6 md:h-8 xs:text-xs md:text-[15px] font-titleFont bg-gray-950 text-gray-200 text-center xs:py-1 md:py-2 overflow-hidden group">
-        <p className="flex min-w-[100%] animate-marquee group-hover:pause-marquee whitespace-nowrap group-hover:animate-none group-hover:justify-center cursor-pointer">
-          Shop Smarter Live Better. Enjoy free delivery in Pakistan &nbsp;
-          {flagComponents.PKR}
-        </p>
+      <div className="w-full xs:h-6 md:h-8 xs:py-1 md:py-2 xs:text-xs md:text-[15px] text-center text-gray-200 bg-gray-950 font-titleFont group">
+        <Marquee speed={90} pauseOnHover={true}>
+          <p className="flex min-w-[100%] ">
+            Shop Smarter Live Better. Enjoy free delivery in Pakistan &nbsp;
+            {flagComponents.PKR}
+          </p>
+        </Marquee>
       </div>
 
       {/* Top Bar */}
@@ -319,7 +262,7 @@ const Navbar = ({ onCurrencyChange }) => {
               <RiArrowDropDownLine className={`w-4 h-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
             </div>
             {isOpen && (
-              <div className="absolute top-full mt-0 bg-white shadow-md rounded-md w-52 max-h-60 overflow-auto scrollbar-none z-[80] border border-gray-100">
+              <div className="absolute top-full mt-0 bg-white shadow-md rounded-b-lg w-60 max-h-72 overflow-auto scrollbar-thin z-[80] border border-gray-100">
                 {currencies.map((curr) => (
                   <div key={curr.code} className="flex items-center p-2 w-full border-b hover:bg-gray-100 cursor-pointer" onClick={() => handleCurrencyChange({ target: { value: curr.code } })}>
                     <div className="flex items-center justify-center w-10 h-8">
@@ -351,11 +294,12 @@ const Navbar = ({ onCurrencyChange }) => {
       </div>
 
       {/* Navbar */}
-      <div className="w-full h-[60px] md:h-[80px] bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="w-full h-[60px] md:h-[80px] bg-white/90 border-b border-gray-200 sticky top-0 z-50">
         <nav className="flex items-center justify-between px-4 md:px-12 py-3">
+
           {/* Logo */}
           <Link to="/">
-            <img src={logo} alt="Logo" className="w-[60px] h-[40px] md:w-[90px] md:h-[55px]" />
+            <img src={logo} alt="Logo" className="w-[60px] h-[50px] md:w-[85px] md:h-[55px]" />
           </Link>
 
           {/* Navigation Links */}
@@ -366,16 +310,18 @@ const Navbar = ({ onCurrencyChange }) => {
             className="hidden md:flex space-x-6 uppercase text-gray-800 font-light"
           >
             <li>
-              <div className="relative group">
+              <div className="relative group"
+                onClick={(e) => e.stopPropagation()} // Prevent closing dropdown when clicking inside
+              >
                 {/* Parent Link */}
-                <Link to="/products" className="relative uppercase text-[16px] text-gray-800 font-thin group-hover:text-gray-600 cursor-pointer">
+                <Link to="/products" className="relative text-gray-800 text-xl font-heading group-hover:text-gray-600 cursor-pointer uppercase">
                   Men
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
+                  {/* <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span> */}
                 </Link>
 
                 {/* Dropdown Container */}
-                <div className="absolute left-0 mt-3 bg-white shadow-lg border border-gray-200 rounded-lg hidden group-hover:block w-[800px] p-6 z-50">
-                  <div className="grid grid-cols-4 gap-6">
+                <div className="absolute left-0 mt-3 bg-white shadow-lg border border-gray-200 rounded-lg hidden group-hover:block w-[180px] p-6 z-50">
+                  <div className="grid grid-cols-1 gap-6">
                     {/* Column 1: Topwear */}
                     {/* <div>
                       <h4 className="font-semibold text-gray-800 mb-2">TOPWEAR</h4>
@@ -404,7 +350,7 @@ const Navbar = ({ onCurrencyChange }) => {
 
                     {/* Column 3: Footwear */}
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">FOOTWEAR</h4>
+                      <h1 className="font-semibold text-gray-800 mb-2">FOOTWEAR</h1>
                       <ul className="space-y-2 text-gray-600">
                         <li>Casual Shoes</li>
                         <li>Boots</li>
@@ -436,16 +382,15 @@ const Navbar = ({ onCurrencyChange }) => {
             <li>
               <div className="relative group">
                 {/* Parent Link */}
-                <Link to="/products" className="relative uppercase text-[16px] text-gray-800 font-thin group hover:text-gray-600">
+                <Link to="/products" className="relative uppercase text-xl font-heading text-gray-800 group hover:text-gray-600">
                   Women
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
                 </Link>
 
                 {/* Dropdown Container */}
-                <div className="absolute left-0 mt-3 bg-white shadow-lg border border-gray-200 rounded-lg hidden group-hover:block w-[800px] p-6 z-50">
-                  <div className="grid grid-cols-4 gap-6">
+                <div className="absolute left-0 mt-3 bg-white shadow-lg border border-gray-200 rounded-lg hidden group-hover:block w-[180px] p-6 z-50">
+                  <div className="grid grid-cols-1 gap-6">
                     {/* Column 1: Topwear */}
-                    <div>
+                    {/* <div>
                       <h4 className="font-semibold text-gray-800 mb-2">TOPWEAR</h4>
                       <ul className="space-y-2 text-gray-600">
                         <li>Vest</li>
@@ -456,10 +401,10 @@ const Navbar = ({ onCurrencyChange }) => {
                         <li>Traditional</li>
                         <li>Sleep & Lounge</li>
                       </ul>
-                    </div>
+                    </div> */}
 
                     {/* Column 2: Bottomwear */}
-                    <div>
+                    {/* <div>
                       <h4 className="font-semibold text-gray-800 mb-2">BOTTOMWEAR</h4>
                       <ul className="space-y-2 text-gray-600">
                         <li>Boxers</li>
@@ -468,7 +413,7 @@ const Navbar = ({ onCurrencyChange }) => {
                         <li>Pants</li>
                         <li>Trousers</li>
                       </ul>
-                    </div>
+                    </div> */}
 
                     {/* Column 3: Footwear */}
                     <div>
@@ -485,7 +430,7 @@ const Navbar = ({ onCurrencyChange }) => {
                     </div>
 
                     {/* Column 4: Accessories */}
-                    <div>
+                    {/* <div>
                       <h4 className="font-semibold text-gray-800 mb-2">ACCESSORIES</h4>
                       <ul className="space-y-2 text-gray-600">
                         <li>Wallets</li>
@@ -495,77 +440,78 @@ const Navbar = ({ onCurrencyChange }) => {
                         <li>Bags</li>
                         <li>Watches</li>
                       </ul>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
             </li>
 
             <li>
-              <div className="relative group">
+              <div className="relative"
+                onMouseEnter={handleMouseEnter}
+                onClick={handleDropdownToggle}
+                ref={dropdownRef}
+              >
                 {/* Parent Link */}
-                <Link to="/products" className="relative uppercase text-[16px] text-gray-800 font-thin group hover:text-gray-600">
+                <span className="relative uppercase text-xl font-heading text-gray-800 group hover:text-gray-600">
                   Kids
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
-                </Link>
+                </span>
 
-                {/* Dropdown Container */}
-                <div className="absolute left-0 mt-3 bg-white shadow-lg border border-gray-200 rounded-lg hidden group-hover:block w-[800px] p-6 z-50">
-                  <div className="grid grid-cols-4 gap-6">
-                    {/* Column 1: Topwear */}
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">TOPWEAR</h4>
-                      <ul className="space-y-2 text-gray-600">
-                        <li>Vest</li>
-                        <li>Shirts</li>
-                        <li>T-Shirts</li>
-                        <li>Hoodies</li>
-                        <li>Sweatshirts</li>
-                        <li>Traditional</li>
-                        <li>Sleep & Lounge</li>
-                      </ul>
-                    </div>
-
-                    {/* Column 2: Bottomwear */}
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">BOTTOMWEAR</h4>
-                      <ul className="space-y-2 text-gray-600">
-                        <li>Boxers</li>
-                        <li>Shorts</li>
-                        <li>Jeans</li>
-                        <li>Pants</li>
-                        <li>Trousers</li>
-                      </ul>
-                    </div>
-
-                    {/* Column 3: Footwear */}
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">FOOTWEAR</h4>
-                      <ul className="space-y-2 text-gray-600">
-                        <li>Casual Shoes</li>
-                        <li>Boots</li>
-                        <li>Sports Shoes</li>
-                        <li>Formal Shoes</li>
-                        <li>Sandals</li>
-                        <li>Sneakers</li>
-                        <li>Slippers</li>
-                      </ul>
-                    </div>
-
-                    {/* Column 4: Accessories */}
-                    <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">ACCESSORIES</h4>
-                      <ul className="space-y-2 text-gray-600">
-                        <li>Wallets</li>
-                        <li>Belts & Key Chains</li>
-                        <li>Fragrances</li>
-                        <li>Eyewear</li>
-                        <li>Bags</li>
-                        <li>Watches</li>
-                      </ul>
+                {isDropdownOpen && (
+                  <div className="absolute left-0 mt-3 bg-white shadow-lg rounded-md border border-gray-200 p-2 w-48 z-50">
+                    <div className="overflow-hidden rounded-md">
+                      {categories.length > 0 ? (
+                        <ul className="space-y-2">
+                          {categories.map((category) => (
+                            <li key={category.id}>
+                              <button
+                                onClick={() => handleCategoryClick(category.id, category.name)}
+                                className="w-full text-left font-heading px-2 py-2 text-gray-800 hover:bg-gray-300 hover:bg-opacity-20 rounded-md transition-colors duration-300"
+                              >
+                                {category.name}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="px-4 py-2 text-gray-700">No Categories</div>
+                      )}
                     </div>
                   </div>
-                </div>
+                )}
+
+                {/* {isDropdownOpen && (
+                  <div className="absolute left-0 mt-3 bg-white shadow-lg border border-gray-200 rounded-lg z-50 p-6 w-[720px]">
+                    <div className="grid grid-cols-4 gap-6">
+                      {categories.length > 0 ? (
+                        categories.map((category) => (
+                          <div key={category.id}>
+                            <h4 className="font-semibold text-gray-800 mb-2">{category.name}</h4>
+                            <ul className="space-y-2 text-gray-600">
+                              {Array.isArray(category.subcategories) && category.subcategories.length > 0 ? (
+                                category.subcategories.map((subcategory) => (
+                                  <li key={subcategory.id}>
+                                    <button
+                                      onClick={() => handleCategoryClick(subcategory.id, subcategory.name)}
+                                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#7b246d] hover:bg-opacity-20 rounded-lg transition-colors duration-300"
+                                    >
+                                      {subcategory.name}
+                                    </button>
+                                  </li>
+                                ))
+                              ) : (
+                                <li className="text-gray-500">No Subcategories</li>
+                              )}
+                            </ul>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="col-span-4 px-4 py-2 text-gray-700">No Categories</div>
+                      )}
+                    </div>
+                  </div>
+                )} */}
+
               </div>
             </li>
 
@@ -576,10 +522,9 @@ const Navbar = ({ onCurrencyChange }) => {
                 duration={500}
                 offset={-50}
                 onClick={() => handleNavigation('small-banner')}
-                className="relative uppercase text-[16px] text-gray-800 font-thin group cursor-pointer"
+                className="relative text-xl font-heading text-gray-800 group cursor-pointer uppercase"
               >
                 Top Trending
-                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
               </ScrollLink>
             </li>
 
@@ -590,97 +535,126 @@ const Navbar = ({ onCurrencyChange }) => {
                 duration={500}
                 offset={-50}
                 onClick={() => handleNavigation('new-arrivals')}
-                className="relative uppercase text-[16px] text-gray-800 font-thin group cursor-pointer"
+                className="relative text-xl font-heading text-gray-800 group cursor-pointer uppercase"
               >
                 New Arrivals
-                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
               </ScrollLink>
             </li>
+
+            {/* <div className="relative"
+              onMouseEnter={handleMouseEnter}
+              onClick={handleDropdownToggle}
+              ref={dropdownRef}
+            >
+              <span className="relative uppercase text-[16px] text-gray-800 font-thin cursor-pointer group-hover:text-gray-600">
+                Categories
+                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#7b246d] transition-all duration-300 group-hover:w-[75%]"></span>
+              </span>
+
+              {isDropdownOpen && (
+                <div className="absolute left-0 mt-2 bg-white shadow-lg rounded-lg border border-gray-200 z-50 p-4 w-60">
+                  <div className="overflow-hidden rounded-lg">
+                    {categories.length > 0 ? (
+                      <ul className="space-y-2">
+                        {categories.map((category) => (
+                          <li key={category.id}>
+                            <button
+                              onClick={() => handleCategoryClick(category.id, category.name)}
+                              className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#7b246d] hover:bg-opacity-20 rounded-lg transition-colors duration-300"
+                            >
+                              {category.name}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="px-4 py-2 text-gray-700">No Categories</div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div> */}
           </motion.ul>
 
           {/* Left Section: Currency, User, and Cart */}
           <div className="flex">
             {/* Search Section */}
-            <div className="relative flex items-center w-full">
+            <div className="relative">
               {/* Search Toggle Button */}
-              <button onClick={() => setSearchOpen(!searchOpen)} className="flex-shrink-0 text-gray-600 hover:text-gray-800 md:ml-4">
+              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer text-gray-600 hover:text-gray-800">
                 <HiSearch className="w-5 h-5 md:w-6 md:h-6 text-gray-800" />
               </button>
 
-              {/* Search Input */}
+              {/* Full-Screen Search */}
               {searchOpen && (
-                <div className={`absolute top-full left-0 md:left-auto md:right-0 mt-2 p-4 w-full md:w-screen max-w-xs md:max-w-md lg:max-w-lg bg-gray-100 border border-gray-200 rounded-lg shadow-lg z-50 ${window.innerWidth < 768 ? "w-full" : "max-w-md"}`} ref={searchRef}>
-                  <div className="relative">
+                <div className="fixed inset-0 bg-white/50 backdrop-blur-sm flex flex-col z-50">
+                  {/* <div className="fixed inset-0 bg-white bg-opacity-50 backdrop-blur-sm flex flex-col z-50"> */}
+                  <div className="relative flex items-center p-6 border-b border-gray-300">
                     <input
                       type="text"
-                      placeholder="Search products, categories..."
+                      placeholder="Search for products or categories..."
                       value={searchQuery}
-                      onChange={(e) => {
-                        handleDesktopSearchChange(e);
-                        setShowDesktopDropdown(true);
-                      }}
-                      className="w-full h-10 pl-2 pr-10 border border-gray-300 rounded-full outline-none text-gray-800 bg-gray-100 focus:ring-2 focus:ring-gray-400 transition-all"
+                      onChange={handleSearchChange}
+                      className="flex-grow h-12 px-4 text-gray-800 bg-gray-100 rounded-full focus:ring-2 focus:ring-gray-600 focus:outline-none"
+                      autoFocus
                     />
-                    <button className="absolute top-1/2 transform -translate-y-1/2 right-4 text-gray-500 hover:text-gray-700"
-                      onClick={() => {
-                        setSearchOpen(false);
-                        setShowDesktopDropdown(false);
-                      }}
-                    >
+                    <button className="absolute top-1/2 right-10 transform -translate-y-1/2 ml-4 text-xl text-gray-700 hover:text-gray-800" onClick={closeSearch}>
                       &#10005;
                     </button>
                   </div>
-                </div>
-              )}
 
-              {/* Dropdown Results */}
-              {showDesktopDropdown && (searchResults.products?.length > 0 || searchResults.categories?.length > 0) && (
-                <div
-                  className="absolute top-[calc(100%+0.5rem)] left-0 md:left-auto md:right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-72 max-w-md overflow-auto"
-                  ref={desktopSearchDropdownRef}
-                >
-                  {/* Categories */}
-                  {searchResults.categories?.length > 0 && (
-                    <>
-                      <h3 className="px-4 py-2 text-gray-700 font-semibold uppercase">Categories</h3>
-                      {searchResults.categories.map((category) => (
-                        <div
-                          key={category._id}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleCategoryClick(category.name)}
-                        >
-                          <p className="text-gray-800 font-medium">{category.name}</p>
-                          <p className="text-sm text-gray-500">{category.description || null}</p>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                  {/* Dropdown Results */}
+                  {showDropdown && (searchResults.products?.length > 0 || searchResults.categories?.length > 0) && (
+                    <div className="flex-grow overflow-auto p-4 backdrop-blur-sm">
+                      {/* No Results Found */}
+                      {searchResults.categories?.length === 0 && searchResults.products?.length === 0 && (
+                        <p className="text-center text-gray-800">No results found.</p>
+                      )}
 
-                  {/* Products */}
-                  {searchResults.products?.length > 0 && (
-                    <>
-                      <h3 className="px-4 py-2 text-gray-700 font-semibold uppercase">Products</h3>
-                      {searchResults.products.map((product) => (
-                        <div
-                          key={product._id}
-                          className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleProductClick(product.name)}
-                        >
-                          <img
-                            src={product.images?.[0]?.imagePath || 'default-image.png'}
-                            alt={product.name}
-                            className="w-20 h-16 object-cover rounded mr-3"
-                          />
-                          <div>
-                            <p className="text-gray-800 font-medium">{product.name}</p>
-                            <p className="text-sm text-gray-600">
-                              {product.color || 'Color (N/A)'} - {product.size || 'Size (N/A)'}
-                            </p>
-                            <p className="text-xs text-gray-500">{product.shortDescription}</p>
-                          </div>
+                      {/* Categories */}
+                      {searchResults.categories?.length > 0 && (
+                        <div className="mb-4">
+                          <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Categories</h3>
+                          {searchResults.categories.map((category) => (
+                            <div
+                              key={category._id}
+                              className="p-2 bg-gray-100 rounded-lg mb-2 hover:bg-gray-200 cursor-pointer"
+                              onClick={() => handleCategoryClick(category.name)}
+                            >
+                              <p className="font-medium text-gray-800">{category.name}</p>
+                              {/* <p className="text-sm text-gray-500">{category.description}</p> */}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </>
+                      )}
+
+                      {/* Products */}
+                      {searchResults.products?.length > 0 && (
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Products</h3>
+                          {searchResults.products.map((product) => (
+                            <div
+                              key={product._id}
+                              className="flex items-center p-2 bg-gray-100 rounded-lg mb-2 hover:bg-gray-200 cursor-pointer"
+                              onClick={() => handleProductClick(product.name)}
+                            >
+                              <img
+                                src={product.images[0]?.imagePath || 'default-image.png'}
+                                alt={product.name}
+                                className="w-12 h-12 object-cover rounded-full mr-3"
+                              />
+                              <div>
+                                <p className="font-medium text-gray-800">{product.name}</p>
+                                <p className="text-sm text-gray-600">
+                                  {product.color || 'Color (N/A)'} - {product.size || 'Size (N/A)'}
+                                </p>
+                                <p className="text-xs text-gray-500">{product.shortDescription}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
               )}
@@ -688,11 +662,7 @@ const Navbar = ({ onCurrencyChange }) => {
 
             {/* User Dropdown */}
             <div className="relative">
-              <div
-                className="p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
-                onClick={() => setShowUser(!showUser)}
-                ref={userRef}
-              >
+              <div className="p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer" onClick={() => setShowUser(!showUser)} ref={userRef}>
                 {userInfo ? (
                   <img src={userImage} alt="User" className="w-5 h-5 md:w-6 md:h-6 rounded-full" />
                 ) : (
@@ -701,7 +671,9 @@ const Navbar = ({ onCurrencyChange }) => {
               </div>
               {/* User Dropdown Menu */}
               {showUser && (
-                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg">
+                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg"
+                  onClick={(e) => e.stopPropagation()} // Prevent closing dropdown when clicking inside
+                >
                   {userInfo ? (
                     <>
                       <div className="p-2 cursor-default">Hi, {userInfo.name}</div>
@@ -714,8 +686,12 @@ const Navbar = ({ onCurrencyChange }) => {
                     </>
                   ) : (
                     <>
-                      <Link to="/signin" className="block p-2 hover:bg-gray-100 uppercase">Sign In</Link>
-                      <Link to="/signup" className="block p-2 hover:bg-gray-100 uppercase">Sign Up</Link>
+                      <Link to="/signin" className="block p-2 hover:bg-gray-100 uppercase" onClick={() => setShowUser(false)}>
+                        Sign In
+                      </Link>
+                      <Link to="/signup" className="block p-2 hover:bg-gray-100 uppercase" onClick={() => setShowUser(false)}>
+                        Sign Up
+                      </Link>
                     </>
                   )}
                 </div>
@@ -750,9 +726,10 @@ const Navbar = ({ onCurrencyChange }) => {
               handleLogout={handleLogout}
             />
           </div>
+
         </nav>
       </div>
-    </div>
+    </>
   );
 };
 

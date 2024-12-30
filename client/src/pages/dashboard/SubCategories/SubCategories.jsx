@@ -8,8 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../redux/reduxSlice";
-import Loader from "../../../components/Loader/Loader";
+import { setLoading } from "../../../redux/reduxSlice.jsx";
+import Loader from "../../../components/Loader/Loader.jsx";
 
 function Categories() {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -48,12 +48,12 @@ function Categories() {
   }, [dispatch]);
 
   const addCategory = async () => {
-    navigate('/dashboard/categories/add_category');
+    navigate('/dashboard/sub_categories/add_category');
   };
 
   const handleEdit = (row) => {
     const categoryId = row._id;
-    navigate(`/dashboard/categories/update_category/${categoryId}`);
+    navigate(`/dashboard/sub_categories/update_category/${categoryId}`);
   };
 
   const handleDelete = async (CategoryId) => {
@@ -120,10 +120,10 @@ function Categories() {
           {!loading && !error && (
             <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
               <div className="flex justify-between items-center p-6 pb-0 mb-3 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <h6 className="text-xl font-semibold">Categories</h6>
+                <h6 className="text-xl font-semibold">Sub-Categories</h6>
 
                 <button className="text-sm font-semibold text-white bg-[#2f456a] px-5 py-2 rounded-lg hover:bg-[#1d2c44] hover:shadow-lg transform hover:scale-105 transition-transform duration-300" onClick={addCategory}>
-                  Add Category
+                  Add Sub-Category
                 </button>
               </div>
 

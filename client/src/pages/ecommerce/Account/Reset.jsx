@@ -64,48 +64,6 @@ function Reset() {
         }
     };
 
-    // const handlePasswordReset = async (e) => {
-    //     e.preventDefault();
-    //     dispatch(setLoading(true));
-
-    //     // Define a timeout for 3 minutes
-    //     const timeoutPromise = new Promise((_, reject) =>
-    //         setTimeout(() => reject(new Error("Request timed out, Please try again later.")), 1 * 60 * 1000)
-    //     );
-
-    //     const isValid = validatePassword();
-
-    //     if (!isValid) {
-    //         dispatch(setLoading(false));
-    //         return;
-    //     }
-
-    //     try {
-    //         const result = await Promise.race([
-    //             api.post("/api/resetPassword", values),
-    //             timeoutPromise,
-    //         ]);
-    //         if (result.data.message === "Password reset successfully!") {
-    //             toast.success("Password reset successfully, Sign in now!");
-    //             setError(null);
-    //             setValues({
-    //                 email: '',
-    //                 newPassword: '',
-    //                 confirmNewPassword: ''
-    //             });
-    //         }
-    //     } catch (error) {
-    //         if (error.response && error.response.data && error.response.data.error) {
-    //             toast.error(error.response.data.error);
-    //         } else {
-    //             console.error("Request failed during reset password:", error);
-    //             toast.error("Request failed during password reset!");
-    //         }
-    //     } finally {
-    //         dispatch(setLoading(false));
-    //     }
-    // };
-
     const handlePasswordReset = async (e) => {
         e.preventDefault();
     

@@ -47,12 +47,12 @@ function Products() {
   }, [dispatch]);
 
   const addProduct = async () => {
-    navigate('/dashboard/products/addProduct');
+    navigate('/dashboard/products/add_product');
   };
 
   const handleEdit = (row) => {
     const productId = row._id;
-    navigate(`/dashboard/products/updateProduct/${productId}`);
+    navigate(`/dashboard/products/update_product/${productId}`);
   };
 
   const handleDelete = async (ProductId) => {

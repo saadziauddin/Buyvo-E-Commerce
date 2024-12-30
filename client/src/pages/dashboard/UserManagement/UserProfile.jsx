@@ -124,9 +124,9 @@ function UserProfile() {
 
   const goBack = () => {
     if (userRole === 'Admin') {
-      navigate('/dashboard/userManagement');
+      navigate('/dashboard/user_management');
     } else if (userRole === 'SubAdmin') {
-      navigate('/dashboard/userManagement');
+      navigate('/dashboard/user_management');
     } else if (userRole === 'Client') {
       navigate('/welcome');
     } else {
