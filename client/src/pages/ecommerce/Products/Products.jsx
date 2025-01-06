@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
 import Loader from "../../../components/Loader/Loader";
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
 
 function Products() {
   const { selectedCurrency } = useOutletContext();
@@ -206,9 +207,7 @@ function Products() {
                   const imagePaths =
                     Array.isArray(product.images) && product.images.length > 0
                       ? product.images.map((img) => `${img.imagePath}`)
-                      : [
-                        `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/image-not-available_jrcuh6.png`,
-                      ];
+                      : [`${ProductNotAvailableImg}`];
 
                   return (
                     <div className="w-full" key={product._id}>

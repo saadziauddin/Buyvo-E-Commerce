@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
 import Loader from "../../../components/Loader/Loader";
+import UserDefaultImage from '/Images/DefaultImages/default_profile.png';
 
 function UserManagement() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -184,7 +185,7 @@ function UserManagement() {
                             const profileImage =
                               row.profileImage && row.profileImage[0] && row.profileImage[0].imagePath
                                 ? `${row.profileImage[0]?.imagePath}`
-                                : `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/default_profile_jlmahy.png`;
+                                : `${UserDefaultImage}`;
 
                             return (
                               <div>

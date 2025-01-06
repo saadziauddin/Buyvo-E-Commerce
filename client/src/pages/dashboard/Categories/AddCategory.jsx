@@ -51,13 +51,14 @@ function AddCategory() {
         api.post('/api/categories/addCategory', formData),
         timeoutPromise,
       ]);
+      
       if (uploadCategory.data.message === "Category uploaded successfully!") {
-        toast.success("Category added successfully!");
         setValues({
           name: '',
           description: '',
           image: '',
         });
+        toast.success("Category added successfully!");
         setError(null);
       }
     } catch (error) {
@@ -65,7 +66,7 @@ function AddCategory() {
       if (error.response) {
         // Extract the custom error message from the server
         const errorMessage = error.response.data.error || "Something went wrong, Please try again later.";
-        toast.error(errorMessage); // Display the error message to the user
+        toast.error(errorMessage);
       } else if (error.request) {
         // Request was made but no response was received
         toast.error("No response from the server. Please try again later.");

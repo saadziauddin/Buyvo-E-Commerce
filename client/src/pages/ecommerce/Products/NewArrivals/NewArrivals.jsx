@@ -6,6 +6,7 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../../redux/reduxSlice";
 import Loader from "../../../../components/Loader/Loader";
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
 
 function NewArrivals({ selectedCurrency }) {
   const [products, setProducts] = useState([]);
@@ -136,9 +137,7 @@ function NewArrivals({ selectedCurrency }) {
               const imagePaths =
                 Array.isArray(product.images) && product.images.length > 0
                   ? product.images.map((img) => `${img.imagePath}`)
-                  : [
-                    `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/image-not-available_jrcuh6.png`,
-                  ];
+                  : [`${ProductNotAvailableImg}`];
 
               return (
                 <div className="px-2 py-10" key={product._id}>

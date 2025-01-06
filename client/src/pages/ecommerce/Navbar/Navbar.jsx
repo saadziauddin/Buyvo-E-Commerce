@@ -15,6 +15,9 @@ import { Link as ScrollLink } from "react-scroll";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
 import Marquee from 'react-fast-marquee';
+import DefaultUserImage from '/Images/DefaultImages/default_profile.png'
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
+import ImageNotAvailableImg from '/Images/DefaultImages/image_not_available.png'
 
 const Navbar = ({ onCurrencyChange }) => {
   const [currency, setCurrency] = useState('PKR');
@@ -74,6 +77,9 @@ const Navbar = ({ onCurrencyChange }) => {
       try {
         const response = await api.get(`/api/search?term=${searchQuery}`);
         const { products, categories } = response.data;
+        
+        console.log("Products: ", products);
+        console.log("Categories: ", categories);
 
         setSearchResults({ products, categories });
         setShowDropdown(true);
@@ -175,12 +181,12 @@ const Navbar = ({ onCurrencyChange }) => {
 
   const userImage = userInfo?.image
     ? `${userInfo.image}`
-    : `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/default_profile_jlmahy.png`;
+    : `${DefaultUserImage}`;
 
   const handleEditProfile = () => {
     if (userInfo.userId) {
       const userId = userInfo.userId;
-      navigate(`/editprofile/${userId}`);
+      navigate(`/edit_profile/${userId}`);
     } else {
       console.error("User ID is not defined");
     }
@@ -189,7 +195,7 @@ const Navbar = ({ onCurrencyChange }) => {
   const handleMyOrders = () => {
     if (userInfo.email) {
       const userEmail = userInfo.email;
-      navigate(`/orderdetails/${userEmail}`);
+      navigate(`/order_details/${userEmail}`);
     } else {
       console.error("User email is not defined");
     }
@@ -612,17 +618,23 @@ const Navbar = ({ onCurrencyChange }) => {
                       )}
 
                       {/* Categories */}
+
+                      
                       {searchResults.categories?.length > 0 && (
                         <div className="mb-4">
                           <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Categories</h3>
                           {searchResults.categories.map((category) => (
                             <div
                               key={category._id}
-                              className="p-2 bg-gray-100 rounded-lg mb-2 hover:bg-gray-200 cursor-pointer"
+                              className="flex items-center p-2 bg-gray-100 rounded-lg mb-2 hover:bg-gray-200 cursor-pointer"
                               onClick={() => handleCategoryClick(category.name)}
                             >
+                              <img
+                                src={category.imagePath || ProductNotAvailableImg}
+                                alt={category.name || "Default Category"}
+                                className="w-12 h-12 object-cover rounded-full mr-3"
+                              />
                               <p className="font-medium text-gray-800">{category.name}</p>
-                              {/* <p className="text-sm text-gray-500">{category.description}</p> */}
                             </div>
                           ))}
                         </div>
@@ -639,8 +651,8 @@ const Navbar = ({ onCurrencyChange }) => {
                               onClick={() => handleProductClick(product.name)}
                             >
                               <img
-                                src={product.images[0]?.imagePath || 'default-image.png'}
-                                alt={product.name}
+                                src={product.images?.[0]?.imagePath || ProductNotAvailableImg}
+                                alt={product.name || "Product Image"}
                                 className="w-12 h-12 object-cover rounded-full mr-3"
                               />
                               <div>
@@ -726,7 +738,6 @@ const Navbar = ({ onCurrencyChange }) => {
               handleLogout={handleLogout}
             />
           </div>
-
         </nav>
       </div>
     </>

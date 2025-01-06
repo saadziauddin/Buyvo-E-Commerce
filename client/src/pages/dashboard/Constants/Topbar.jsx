@@ -6,6 +6,7 @@ import api from '../../../api/api.js';
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
 import Loader from "../../../components/Loader/Loader";
+import UserDefaultImage from '/Images/DefaultImages/default_profile.png';
 
 function Navbar({ toggleSidebar }) {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -44,7 +45,7 @@ function Navbar({ toggleSidebar }) {
           setName(res.data.name);
           const userImage = res.data.image 
             ? `${res.data.image}`
-            : `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/default_profile_jlmahy.png`;   
+            : `${UserDefaultImage}`;   
           setUserImage(userImage);
           setRole(res.data.role);
           setEmail(res.data.email);

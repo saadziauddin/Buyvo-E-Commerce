@@ -5,6 +5,7 @@ import { addToCart } from "../../../redux/reduxSlice";
 import FormatPrice from "../../../helpers/FormatPrice";
 import { PiShoppingCartLight, PiHeartStraightLight } from "react-icons/pi";
 import { TfiSearch } from "react-icons/tfi";
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
 
 function ProductCard(props) {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -81,7 +82,7 @@ function ProductCard(props) {
             alt={props.productName}
             onError={(e) => {
               console.error('Image failed to load, using default image.');
-              e.target.src = [`https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/image-not-available_jrcuh6.png`];
+              e.target.src = [`${ProductNotAvailableImg}`];
             }}
           />
         ))}

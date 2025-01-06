@@ -19,6 +19,7 @@ import Loader from "../../../components/Loader/Loader";
 import Slider from "react-slick";
 import Product from "./ProductCard";
 import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
 
 function ProductDetails() {
     const { selectedCurrency } = useOutletContext();
@@ -39,7 +40,7 @@ function ProductDetails() {
     const [relatedProducts, setRelatedProducts] = useState([]);
 
 
-    const defaultImage = 'https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/image-not-available_jrcuh6.png';
+    const defaultImage = ProductNotAvailableImg;
 
     const [productImages, setProductImages] = useState([defaultImage]);
 
@@ -195,79 +196,6 @@ function ProductDetails() {
 
         return formattedDescription;
     };
-
-    // useEffect(() => {
-    //     const fetchRelatedProducts = async () => {
-    //         if (!productInfo?.category) return;
-
-    //         dispatch(setLoading(true));
-
-    //         try {
-    //             const timeoutPromise = new Promise((_, reject) =>
-    //                 setTimeout(() => reject(new Error("Request timed out. Please try again later.")), 60 * 1000)
-    //             );
-
-    //             const response = await Promise.race([
-    //                 api.get(`/api/fetchProductByCategory/${productInfo.category}`),
-    //                 timeoutPromise,
-    //             ]);
-
-    //             const data = response.data;
-                
-    //             // Check if `fetchCategory` exists and is an array
-    //             if (Array.isArray(data.fetchCategory)) {
-    //                 const categoryProducts = data.fetchCategory;
-
-    //                 if (categoryProducts.length === 1) {
-    //                     console.warn("Only one product found in category. Fetching all products...");
-
-    //                     // Fetch all products (fallback)
-    //                     const fallbackResponse = await Promise.race([
-    //                         api.get("/api/fetchProducts"),
-    //                         timeoutPromise,
-    //                     ]);
-
-    //                     // Correctly extract fallback products
-    //                     const fallbackProducts = Array.isArray(fallbackResponse.data)
-    //                         ? fallbackResponse.data
-    //                         : [];
-
-    //                     // Combine the single category product with fallback products
-    //                     const combinedProducts = [
-    //                         ...categoryProducts,
-    //                         ...fallbackProducts.filter(
-    //                             (fallbackProduct) =>
-    //                                 !categoryProducts.some(
-    //                                     (categoryProduct) => categoryProduct._id === fallbackProduct._id
-    //                                 )
-    //                         ),
-    //                     ];
-
-    //                     setRelatedProducts(combinedProducts);
-    //                 } else {
-    //                     console.log("Multiple products found. Displaying category products only.");
-    //                     // Display only category products
-    //                     setRelatedProducts(categoryProducts);
-    //                 }
-    //             } else {
-    //                 console.error("fetchCategory is not an array or does not exist.");
-    //                 setRelatedProducts([]);
-    //             }
-
-    //             setError(null);
-
-
-    //         } catch (error) {
-    //             console.error("Error fetching related products:", error.message || error);
-    //             toast.error("Error fetching related products.");
-    //             setError(error.message || "Failed to load related products. Please try again later.");
-    //         } finally {
-    //             dispatch(setLoading(false));
-    //         }
-    //     };
-
-    //     fetchRelatedProducts();
-    // }, [productInfo?.category, dispatch]);
 
     useEffect(() => {
         const fetchRelatedProducts = async () => {

@@ -6,6 +6,7 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../../redux/reduxSlice";
 import Loader from "../../../../components/Loader/Loader";
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
 
 function SpecialOffers({ selectedCurrency }) {
   const [products, setProducts] = useState([]);
@@ -108,10 +109,6 @@ function SpecialOffers({ selectedCurrency }) {
 
   return (
     <div className="mb-10 z-10">
-      {/* <div className="text-lg md:text-xl lg:text-2xl text-center font-semibold uppercase">
-        <p className="bg-[#7b246d] text-white">Special Offers</p>
-      </div> */}
-
       <div className="relative text-center pt-10 pb-0">
         {/* Horizontal lines and text */}
         <div className="flex items-center justify-center">
@@ -134,9 +131,7 @@ function SpecialOffers({ selectedCurrency }) {
               const imagePaths =
                 Array.isArray(product.images) && product.images.length > 0
                   ? product.images.map((img) => `${img.imagePath}`)
-                  : [
-                    `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/image-not-available_jrcuh6.png`,
-                  ];
+                  : [`${ProductNotAvailableImg}`];
 
               return (
                 <div className="px-2 py-10" key={product._id}>

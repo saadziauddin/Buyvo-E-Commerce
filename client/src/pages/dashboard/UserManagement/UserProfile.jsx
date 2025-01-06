@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../redux/reduxSlice";
 import Loader from "../../../components/Loader/Loader";
+import UserDefaultImage from '/Images/DefaultImages/default_profile.png';
 
 function UserProfile() {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -249,7 +250,7 @@ function UserProfile() {
 
   const profileImageUrl = values.profileImage && values.profileImage[0] && values.profileImage[0].imagePath
     ? `${values.profileImage[0]?.imagePath}`
-    : `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/default_profile_jlmahy.png`;
+    : `${UserDefaultImage}`;
 
   const validate = () => {
     let errors = {};

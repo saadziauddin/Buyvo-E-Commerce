@@ -6,6 +6,7 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../../redux/reduxSlice";
 import Loader from "../../../../components/Loader/Loader";
+import ProductNotAvailableImg from '/Images/DefaultImages/product-image-not-available.png'
 
 function BestSellers({ selectedCurrency }) {
   const [products, setProducts] = useState([]);
@@ -106,10 +107,6 @@ function BestSellers({ selectedCurrency }) {
 
   return (
     <>
-      {/* <div className="text-lg md:text-xl lg:text-2xl xl:text-2xl text-center font-semibold pt-5 uppercase relative">
-        <p className="bg-[#7b246d] text-white">Our Best Sellers</p>
-      </div> */}
-
       <div className="relative text-center pt-10 pb-0">
         {/* Horizontal lines and text */}
         <div className="flex items-center justify-center">
@@ -133,7 +130,7 @@ function BestSellers({ selectedCurrency }) {
                 Array.isArray(product.images) && product.images.length > 0
                   ? product.images.map((img) => `${img.imagePath}`)
                   : [
-                    `https://res.cloudinary.com/dzmjsrpdp/image/upload/v1732013415/image-not-available_jrcuh6.png`,
+                    `${ProductNotAvailableImg}`,
                   ];
 
               return (
