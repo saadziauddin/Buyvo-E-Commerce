@@ -43,7 +43,3 @@ dist-ssr
 
 .vercel
 vercel.json
-helpers
-models
-api
-emailTemplates
